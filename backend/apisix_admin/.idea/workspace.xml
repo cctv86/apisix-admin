@@ -51,7 +51,7 @@
   <component name="ProjectId" id="1XqHpWO96TZEPNsPehpGPydq4Or" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/services" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/schema" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -59,11 +59,11 @@
       <recent name="$PROJECT_DIR$/apps/tenant" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/schema" />
       <recent name="$PROJECT_DIR$/apps/services" />
       <recent name="$PROJECT_DIR$/apps/routes" />
       <recent name="$PROJECT_DIR$/apps/consumers" />
       <recent name="$PROJECT_DIR$/apps/users" />
-      <recent name="$PROJECT_DIR$/apps/plugins" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -127,7 +127,7 @@
       <workItem from="1581833574223" duration="5679000" />
       <workItem from="1581848431769" duration="538000" />
       <workItem from="1581849851081" duration="6742000" />
-      <workItem from="1581857003602" duration="11758000" />
+      <workItem from="1581857003602" duration="15918000" />
     </task>
     <servers />
   </component>

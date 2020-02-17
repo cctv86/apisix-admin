@@ -12,6 +12,7 @@ class BaseViewSet(object):
         rst = {"Msg": "ok"}
         for item in ret.get('node').get('nodes'):
             rst[item["key"]] = item["value"]
+
         return JsonResponse(rst)
 
     def create(self, request, *args, **kwargs):

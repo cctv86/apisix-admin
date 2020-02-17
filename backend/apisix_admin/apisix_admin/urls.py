@@ -26,4 +26,5 @@ urlpatterns = [
     path(r'api/v1/routes/', include('routes.urls', namespace="routes")),
     path(r'api/v1/consumers/', include('consumers.urls', namespace="consumers")),
     path(r'api/v1/services/', include('services.urls', namespace="services")),
+    path(r'api/v1/schema/', include('schema.urls', namespace="schema")),
 ]

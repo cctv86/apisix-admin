@@ -13,8 +13,8 @@ class TenantGroupViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return Tenant.objects.all()
-        return TenantGroup.objects.filter(user_id__exact=self.request.user.id)
+            return Tenant.objects.all().order_by("id")
+        return TenantGroup.objects.filter(user_id__exact=self.request.user.id).order_by("id")
 
     def get_serializer_class(self):
         if self.request.user.is_superuser:
