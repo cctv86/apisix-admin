@@ -31,26 +31,26 @@ def request_session(request, action, url_suffix, pk=None):
     if pk is None:
         if tenant.authType == "NoAuth":
             if action == "create":
-                ret = func(url, json=request.data.dict()).json()
+                ret = func(url, json=request.data).json()
             else:
                 ret = func(url).json()
         elif tenant.authType == "KeyAuth":
             if action == "create":
-                ret = func(url, auth=(tenant.username, tenant.password), json=request.data.dict()).json()
+                ret = func(url, auth=(tenant.username, tenant.password), json=request.data).json()
             else:
-                ret = func(url, auth=(tenant.username, tenant.password), json=request.data.dict()).json()
+                ret = func(url, auth=(tenant.username, tenant.password)).json()
         elif tenant.authType == "JWT":
             pass
         return ret
     else:
         if tenant.authType == "NoAuth":
             if action == "update":
-                ret = func(f"{url}/{pk}", json=request.data.dict()).json()
+                ret = func(f"{url}/{pk}", json=request.data).json()
             else:
                 ret = func(f"{url}/{pk}").json()
         elif tenant.authType == "KeyAuth":
             if action == "update":
-                ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), json=request.data.dict()).json()
+                ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), json=request.data).json()
             else:
                 ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password)).json()
         elif tenant.authType == "JWT":
