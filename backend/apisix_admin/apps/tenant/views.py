@@ -1,6 +1,7 @@
 from rest_framework import viewsets, mixins
 from .models import Tenant, TenantGroup
 from .serializers import TenantSerializer, TenantGroupSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class TenantGroupViewSet(viewsets.ModelViewSet):
@@ -10,6 +11,7 @@ class TenantGroupViewSet(viewsets.ModelViewSet):
     """
     serializer_class = TenantGroupSerializer
     queryset = TenantGroup.objects.all()
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         if self.request.user.is_superuser:
