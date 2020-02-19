@@ -9,6 +9,6 @@ router.register(r'group', TenantGroupViewSet)
 
 
 urlpatterns = [
-   re_path(r'check/$', TenantCheckViewSet.as_view({"get": "list"})),
+   re_path(r'status/$', TenantCheckViewSet.as_view({"get": "list"})),
    path(r'', include(router.urls)),
 ]
