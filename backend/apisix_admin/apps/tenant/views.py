@@ -1,6 +1,7 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets
 from .models import Tenant, TenantGroup
 from .serializers import TenantSerializer, TenantGroupSerializer
+from utils.base import BaseViewSet
 
 
 class TenantGroupViewSet(viewsets.ModelViewSet):
@@ -20,3 +21,9 @@ class TenantGroupViewSet(viewsets.ModelViewSet):
         if self.request.user.is_superuser:
             return TenantSerializer
         return TenantGroupSerializer
+
+
+class TenantCheckViewSet(BaseViewSet):
+    def __init__(self):
+        self.url_suffix = "apisix/status"
+
