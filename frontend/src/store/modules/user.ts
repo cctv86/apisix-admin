@@ -23,7 +23,8 @@
  */
 
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-// import { login, logout, getUserInfo } from '@/api/users'
+import { login, logout, getUserInfo } from '@/api/users'
+import { tenant } from '@/api/schema/tenant'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import router, { resetRouter } from '@/router'
 import { PermissionModule } from './permission'
@@ -84,13 +85,18 @@ class User extends VuexModule implements IUserState {
     username = username.trim()
     // TEMP: 在此处绕过登录
     // const { data } = await login({ username, password })
-    
-    const data = {
-      accessToken: username + '-token'
-    }
+  
+    console.log(username, password)
+    let data = await login({ username, password } )
 
-    setToken(data.accessToken)
-    this.SET_TOKEN(data.accessToken)
+
+    const dataToken = {
+      // accessToken: username + '-token'
+      accessToken: data['token']
+    }
+    localStorage.setItem("Token", data['token'])
+    setToken(dataToken.accessToken)
+    this.SET_TOKEN(dataToken.accessToken)
   }
 
   @Action
@@ -105,6 +111,7 @@ class User extends VuexModule implements IUserState {
     if (this.token === '') {
       throw Error('GetUserInfo: token is undefined!')
     }
+    
     // TEMP: 暂时绕过登录
     // const { data } = await getUserInfo({ /* Your params here */ })
     const data = {
@@ -167,3 +174,19 @@ class User extends VuexModule implements IUserState {
 }
 
 export const UserModule = getModule(User)
+
+
+/*
+fetch("http://127.0.0.1:8000/api/v1/api-token-auth/", {
+  method: "POST",
+  headers: {
+      "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+      username: "tt",
+      password: "123456"
+  })
+}).then((res) => {
+    console.log(res)
+})
+*/

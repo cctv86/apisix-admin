@@ -27,6 +27,7 @@ import SchemaConsumersRouter from './modules/schema/consumers'
 import SchemaServicesRouter from './modules/schema/services'
 import SchemaSSLRouter from './modules/schema/ssl'
 import SchemaUpstreamRouter from './modules/schema/upstream'
+import SchemaTenantRouter from './modules/schema/tenant'
 
 Vue.use(Router)
 
@@ -39,7 +40,7 @@ export const constantRoutes: RouteConfig[] = [
   {
     path: '/',
     component: Layout,
-    redirect: '/schema/routes/list'
+    redirect: '/schema/tenant/list'
   }
 ]
 
@@ -53,6 +54,7 @@ export const asyncRoutes: RouteConfig[] = [
   SchemaServicesRouter,
   SchemaSSLRouter,
   SchemaUpstreamRouter,
+  SchemaTenantRouter,
   {
     path: '*',
     redirect: '/404',

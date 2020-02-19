@@ -39,7 +39,11 @@ export default {
     SchemaUpstream: 'Upstream',
     SchemaUpstreamList: 'Upstream',
     SchemaUpstreamCreate: 'Upstream Create',
-    SchemaUpstreamEdit: 'Upstream Edit'
+    SchemaUpstreamEdit: 'Upstream Edit',
+    SchemaTenant: 'Tenant',
+    SchemaTenantList: 'Tenant',
+    SchemaTenantCreate: 'Tenant Create',
+    SchemaTenantEdit: 'Tenant Edit'
   },
   table: {
     add: 'Add',

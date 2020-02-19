@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+#coding: utf-8
+from rest_framework import viewsets, permissions
 from .models import Tenant, TenantGroup
 from .serializers import TenantSerializer, TenantGroupSerializer
 from utils.base import BaseViewSet
@@ -11,6 +12,7 @@ class TenantGroupViewSet(viewsets.ModelViewSet):
     """
     serializer_class = TenantGroupSerializer
     queryset = TenantGroup.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -24,6 +26,9 @@ class TenantGroupViewSet(viewsets.ModelViewSet):
 
 
 class TenantCheckViewSet(BaseViewSet):
+    """
+    健康检查接口
+    """
     def __init__(self):
         self.url_suffix = "apisix/status"
 

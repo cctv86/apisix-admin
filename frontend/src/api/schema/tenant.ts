@@ -16,23 +16,17 @@
  */
 
 import request from '@/utils/request'
+import { IServiceData } from '../types'
 
-export const getUserInfo = (data: any) =>
+export const getTenant = () => 
   request({
-    url: '/api/v1/users/info',
-    method: 'post',
-    data
+    url: '/api/v1/tenant/group/',
+    method: 'get'
   })
 
-export const login = (data: any) =>
-  request({ 
-    url: '/api/v1/api-token-auth/',
-    method: 'post',
-    data
-  })
-
-export const logout = () =>
+  export const checkTenant = (data: any) => 
   request({
-    url: '/api/v1/api-auth/logout',
-    method: 'post'
+    url: '/api/v1/tenant/status/',
+    method: 'get',
+    data
   })

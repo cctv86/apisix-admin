@@ -16,7 +16,9 @@ Including another URLconf
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
 
+
 urlpatterns = [
+    path(r'api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(r'api/v1/api-token-auth/', obtain_jwt_token),
     path(r'api/v1/upstreams/', include('upstreams.urls', namespace="upstreams")),
     path(r'api/v1/tenant/', include('tenant.urls', namespace="tenant")),

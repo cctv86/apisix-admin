@@ -1,5 +1,5 @@
 from rest_framework import permissions
-
+import logging
 
 class ApiSixPermission(permissions.DjangoModelPermissions):
 
@@ -12,14 +12,13 @@ class ApiSixPermission(permissions.DjangoModelPermissions):
         try:
             return {"tenant_id": apisix_id} in list(request.user.user.values("tenant_id"))
         except Exception as e:
+            logging.error(e)
             return False
 
     def has_permission(self, request, view):
-        if getattr(view, '_ignore_model_permissions', False):
-            return True
 
-        if request.user.is_superuser:
-            return True
+        # if request.user.is_superuser:
+        #     return True
 
         if not request.user or (
                 not request.user.is_authenticated and self.authenticated_users_only):

@@ -36,7 +36,7 @@ module.exports = {
     // 查阅 https://github.com/vuejs/vue-doc-zh-cn/vue-cli/cli-service.md#配置代理
     proxy: {
       '/api' : {
-        target: "http://127.0.0.1:8000/",
+        target: "http://127.0.0.1:8000",
         changeOrigin: true,
         ws:true,
         pathRewrite: {

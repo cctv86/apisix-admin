@@ -39,9 +39,15 @@ export default {
     SchemaUpstream: 'Upstream',
     SchemaUpstreamList: 'Upstream',
     SchemaUpstreamCreate: '创建 Upstream',
-    SchemaUpstreamEdit: '编辑 Upstream'
+    SchemaUpstreamEdit: '编辑 Upstream',
+    SchemaTenant: 'Tenant',
+    SchemaTenantList: 'Tenant',
+    SchemaTenantCreate: '创建 Tenant',
+    SchemaTenantEdit: '编辑 Tenant'
+
   },
   table: {
+    conn: '链接',
     add: '添加',
     edit: '编辑',
     delete: '删除',

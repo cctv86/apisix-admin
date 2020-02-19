@@ -1,16 +1,18 @@
-#coding: utf-8
+# coding: utf-8
 import requests
 import os
 from tenant.models import Tenant
 from django.conf import settings
+from requests.exceptions import ConnectionError
+import logging
 
 methods = {
-        "list": requests.get,
-        "retrieve": requests.get,
-        "destroy": requests.delete,
-        "update": requests.put,
-        "create": requests.post,
-    }
+    "list": requests.get,
+    "retrieve": requests.get,
+    "destroy": requests.delete,
+    "update": requests.put,
+    "create": requests.post,
+}
 
 
 def get_tenant(url):
@@ -28,31 +30,35 @@ def request_session(request, action, url_suffix, pk=None):
     if isinstance(tenant, str):
         return tenant
     url = os.path.join(apisix_url, url_suffix)
-    if pk is None:
-        if tenant.authType == "NoAuth":
-            if action == "create":
-                ret = func(url, json=request.data).json()
-            else:
-                ret = func(url).json()
-        elif tenant.authType == "KeyAuth":
-            if action == "create":
-                ret = func(url, auth=(tenant.username, tenant.password), json=request.data).json()
-            else:
-                ret = func(url, auth=(tenant.username, tenant.password)).json()
-        elif tenant.authType == "JWT":
-            pass
-        return ret
-    else:
-        if tenant.authType == "NoAuth":
-            if action == "update":
-                ret = func(f"{url}/{pk}", json=request.data).json()
-            else:
-                ret = func(f"{url}/{pk}").json()
-        elif tenant.authType == "KeyAuth":
-            if action == "update":
-                ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), json=request.data).json()
-            else:
-                ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password)).json()
-        elif tenant.authType == "JWT":
-            pass
-        return ret
+    try:
+        if pk is None:
+            if tenant.authType == "NoAuth":
+                if action == "create":
+                    ret = func(url, json=request.data).json()
+                else:
+                    ret = func(url).json()
+            elif tenant.authType == "KeyAuth":
+                if action == "create":
+                    ret = func(url, auth=(tenant.username, tenant.password), json=request.data).json()
+                else:
+                    ret = func(url, auth=(tenant.username, tenant.password)).json()
+            elif tenant.authType == "JWT":
+                pass
+            return ret
+        else:
+            if tenant.authType == "NoAuth":
+                if action == "update":
+                    ret = func(f"{url}/{pk}", json=request.data).json()
+                else:
+                    ret = func(f"{url}/{pk}").json()
+            elif tenant.authType == "KeyAuth":
+                if action == "update":
+                    ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), json=request.data).json()
+                else:
+                    ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password)).json()
+            elif tenant.authType == "JWT":
+                pass
+            return ret
+    except ConnectionError as e:
+        logging.error(e)
+        return 'apisix connect errors'

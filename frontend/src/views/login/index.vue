@@ -114,6 +114,7 @@ import LangSelect from '@/components/LangSelect/index.vue'
     LangSelect
   }
 })
+
 export default class extends Vue {
   private validateUsername = (rule: any, value: string, callback: Function) => {
     if (!isValidUsername(value)) {
@@ -177,6 +178,7 @@ export default class extends Vue {
     (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
       if (valid) {
         this.loading = true
+        console.log(this.loginForm)
         await UserModule.Login(this.loginForm)
         this.$router.push({
           path: this.redirect || '/',

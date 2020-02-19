@@ -28,10 +28,11 @@ import { Message } from 'element-ui'
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   baseURL: "http://127.0.0.1:8080",
-  timeout: 5000,
+  timeout: 3000,
   headers: {
-    'apisix_url': 'http://ip:port',
-    'apisix_id': 1
+    'apisix_url': localStorage.getItem('apisix_url'),
+    'apisix_id': localStorage.getItem('apisix_id'),
+    'Authorization': 'JWT ' + localStorage.getItem('Token')
   }
 })
 
@@ -46,11 +47,22 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   (response) => {
-    return response.data
+    let data = response.data
+    if (data['ErrMsg']) {
+      Message({
+        message: data['ErrMsg'],
+        type: 'error',
+        duration: 5 * 1000
+      })
+      return Promise.reject(data['ErrMsg'])
+    } else {
+      return data
+    }
+    
   },
   (error) => {
     Message({
-      message: error.response.data.error_msg || error.message,
+      message: error.response.data.detail || error.message,
       type: 'error',
       duration: 5 * 1000
     })
