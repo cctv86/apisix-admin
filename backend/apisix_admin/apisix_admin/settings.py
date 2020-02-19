@@ -228,11 +228,6 @@ JWT_AUTH = {
 
 APISIX_DEV_URL = os.getenv("APISIX_DEV_URL") or "http://localhost:9080"
 
-AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
 
 AUTH_LDAP_SERVER_URI = os.getenv("AUTH_LDAP_SERVER_URI") or 'ldap://xxx.com'
 AUTH_LDAP_BIND_DN = os.getenv("AUTH_LDAP_BIND_DN") or 'BIND_DN'
