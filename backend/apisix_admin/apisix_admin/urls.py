@@ -15,11 +15,10 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
+from .views import health
 from rest_framework_jwt.views import obtain_jwt_token
 
-
 urlpatterns = [
-    path(r'api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(r'api/v1/api-token-auth/', obtain_jwt_token),
     path(r'api/v1/upstreams/', include('upstreams.urls', namespace="upstreams")),
     path(r'api/v1/tenant/', include('tenant.urls', namespace="tenant")),
@@ -30,4 +29,5 @@ urlpatterns = [
     path(r'api/v1/consumers/', include('consumers.urls', namespace="consumers")),
     path(r'api/v1/services/', include('services.urls', namespace="services")),
     path(r'api/v1/schema/', include('schema.urls', namespace="schema")),
+    path(r'api/v1/health/', health),
 ]

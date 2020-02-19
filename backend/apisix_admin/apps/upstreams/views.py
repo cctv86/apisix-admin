@@ -1,8 +1,11 @@
-#coding: utf-8
-from rest_framework import viewsets
+# coding: utf-8
 from utils.base import BaseViewSet
 
 
-class UpstreamViewSet(viewsets.GenericViewSet, BaseViewSet):
+class UpstreamViewSet(BaseViewSet):
+    """
+    upstream
+    """
+
     def __init__(self):
         self.url_suffix = "apisix/admin/upstreams"

@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 from utils.requests import request_session
+from rest_framework import viewsets
 
 
-class BaseViewSet(object):
+class BaseViewSet(viewsets.GenericViewSet):
     def list(self, request, *args, **kwargs):
         ret = request_session(request=request, action="list", url_suffix=self.url_suffix)
         if isinstance(ret, str):
