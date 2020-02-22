@@ -34,28 +34,28 @@ def request_session(request, action, url_suffix, pk=None):
         if pk is None:
             if tenant.authType == "NoAuth":
                 if action == "create":
-                    ret = func(url, json=request.data).json()
+                    ret = func(url, json=request.data, timeout=(3, 10)).json()
                 else:
-                    ret = func(url).json()
+                    ret = func(url, timeout=(3, 10)).json()
             elif tenant.authType == "KeyAuth":
                 if action == "create":
-                    ret = func(url, auth=(tenant.username, tenant.password), json=request.data).json()
+                    ret = func(url, auth=(tenant.username, tenant.password), json=request.data, timeout=(3, 10)).json()
                 else:
-                    ret = func(url, auth=(tenant.username, tenant.password)).json()
+                    ret = func(url, auth=(tenant.username, tenant.password), timeout=(3, 10)).json()
             elif tenant.authType == "JWT":
                 pass
             return ret
         else:
             if tenant.authType == "NoAuth":
                 if action == "update":
-                    ret = func(f"{url}/{pk}", json=request.data).json()
+                    ret = func(f"{url}/{pk}", json=request.data, timeout=(3, 10)).json()
                 else:
-                    ret = func(f"{url}/{pk}").json()
+                    ret = func(f"{url}/{pk}", timeout=(3, 10)).json()
             elif tenant.authType == "KeyAuth":
                 if action == "update":
-                    ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), json=request.data).json()
+                    ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), json=request.data, timeout=(3, 10)).json()
                 else:
-                    ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password)).json()
+                    ret = func(f"{url}/{pk}", auth=(tenant.username, tenant.password), timeout=(3, 10)).json()
             elif tenant.authType == "JWT":
                 pass
             return ret

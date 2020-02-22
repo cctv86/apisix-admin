@@ -29,6 +29,8 @@ class TenantCheckViewSet(BaseViewSet):
     """
     健康检查接口
     """
+    permission_classes = (permissions.IsAuthenticated,)
+
     def __init__(self):
         self.url_suffix = "apisix/status"
 
