@@ -25,7 +25,7 @@ def get_tenant(url):
 
 def request_session(request, action, url_suffix, pk=None):
     func = methods.get(action)
-    apisix_url = request.headers.get("apisix_url", "") or settings.APISIX_DEV_URL
+    apisix_url = request.headers.get("api6Uri", "") or settings.APISIX_DEV_URL
     tenant = get_tenant(apisix_url)
     if isinstance(tenant, str):
         return tenant
