@@ -4,8 +4,8 @@ import logging
 class ApiSixPermission(permissions.DjangoModelPermissions):
 
     def get_custom_perm(self, request):
-        apisix_id = request.headers.get("apisix_id", None)
-        apisix_url = request.headers.get("apisix_url", None)
+        apisix_id = request.headers.get("api6Id", None)
+        apisix_url = request.headers.get("api6Uri", None)
 
         if apisix_id is None or apisix_url is None:
             return False
