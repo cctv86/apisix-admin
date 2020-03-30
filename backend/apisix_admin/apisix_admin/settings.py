@@ -92,6 +92,9 @@ WSGI_APPLICATION = 'apisix_admin.wsgi.application'
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    '*'
+)
 
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -180,11 +183,10 @@ LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
 
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
-    'rest_framework.authentication.TokenAuthentication',
+    # 'rest_framework.authentication.TokenAuthentication',
     'django.contrib.auth.backends.ModelBackend',
+    'django_auth_ldap.backend.LDAPBackend',
 )
-
 
 # jwt setting
 JWT_AUTH = {
