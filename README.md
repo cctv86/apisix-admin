@@ -7,8 +7,7 @@
     Tenant 是多个apisix集群管理模块
     Users 是用户管理模块
 
-开发环境说明:
-  把settings.py里的APISIX_DEV_URL这个变量硬编码成APIsix的IP地址， 同时把DEFAULT_PERMISSION_CLASSES注释掉即可。
+  3. 支持最新apisix 1.3版本。
 
 
 
