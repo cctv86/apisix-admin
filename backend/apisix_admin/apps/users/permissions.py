@@ -1,19 +1,14 @@
 from rest_framework import permissions
-import logging
+
 
 class ApiSixPermission(permissions.DjangoModelPermissions):
 
     def get_custom_perm(self, request):
-        apisix_id = request.headers.get("api6Id", None)
-        apisix_url = request.headers.get("api6Uri", None)
 
-        if apisix_id is None or apisix_url is None:
+        api6_uri = request.headers.get("API6URL")
+        if api6_uri is None or api6_uri == "undefined":
             return False
-        try:
-            return {"tenant_id": apisix_id} in list(request.user.user.values("tenant_id"))
-        except Exception as e:
-            logging.error(e)
-            return False
+        return True
 
     def has_permission(self, request, view):
 

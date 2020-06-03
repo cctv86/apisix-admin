@@ -12,4 +12,4 @@ class PluginsViewSet(viewsets.GenericViewSet):
         ret = request_session(request=request, action="list", url_suffix=self.url_suffix)
         if isinstance(ret, str):
             return JsonResponse({"Msg": ret})
-        return JsonResponse(ret)
+        return JsonResponse({"Data": ret})

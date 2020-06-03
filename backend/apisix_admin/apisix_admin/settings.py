@@ -228,8 +228,6 @@ JWT_AUTH = {
 
 #LOGIN_REDIRECT_URL = "/api/v1/accounts/profile/"
 
-APISIX_DEV_URL = os.getenv("APISIX_DEV_URL") or "http://localhost:9080"
-
 
 AUTH_LDAP_SERVER_URI = os.getenv("AUTH_LDAP_SERVER_URI") or 'ldap://xxx.com'
 AUTH_LDAP_BIND_DN = os.getenv("AUTH_LDAP_BIND_DN") or 'BIND_DN'

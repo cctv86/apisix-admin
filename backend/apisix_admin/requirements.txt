@@ -1,3 +1,4 @@
+requests
 ldap
 djangorestframework-jwt
 asgiref==3.2.3
