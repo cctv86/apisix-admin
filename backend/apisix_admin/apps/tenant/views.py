@@ -1,28 +1,37 @@
 #coding: utf-8
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from .models import Tenant, TenantGroup
-from .serializers import TenantSerializer, TenantGroupSerializer
+from .serializers import TenantSerializer
 from utils.base import BaseViewSet
+from rest_framework.response import Response
 
 
-class TenantGroupViewSet(viewsets.ModelViewSet):
-    """
-    管理员: 拥有所有的apisix集群权限
-    普通用户: 只拥有分配给这个用户的权限
-    """
-    serializer_class = TenantGroupSerializer
-    queryset = TenantGroup.objects.all()
+class TenantViewSwt(viewsets.ModelViewSet):
+    serializer_class = TenantSerializer
+    queryset = Tenant.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Tenant.objects.all().order_by("id")
-        return TenantGroup.objects.filter(user_id__exact=self.request.user).order_by("id")
+        return Tenant.objects.filter(tenant__user__exact=self.request.user).order_by("id")
 
-    def get_serializer_class(self):
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        qs = Tenant.objects.filter(url=request.data.get('url'))
+        if len(qs) != 0:
+            return Response({"ErrMsg": "base url is exist, please check."}, status=status.HTTP_400_BAD_REQUEST)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
         if self.request.user.is_superuser:
-            return TenantSerializer
-        return TenantGroupSerializer
+            serializer.save()
+        else:
+            tn = Tenant.objects.create(**serializer.validated_data)
+            TenantGroup.objects.create(user=self.request.user, tenant_id=tn.id)
 
 
 class TenantCheckViewSet(BaseViewSet):

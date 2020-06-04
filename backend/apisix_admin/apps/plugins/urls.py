@@ -5,5 +5,5 @@ app_name = "sni"
 
 
 urlpatterns = [
-   re_path(r'list/$', PluginsViewSet.as_view({"get": "list"})),
+   re_path(r'list$', PluginsViewSet.as_view({"get": "list"})),
 ]

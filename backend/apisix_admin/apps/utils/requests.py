@@ -16,11 +16,12 @@ methods = {
 def request_session(request, action, url_suffix, pk=None):
     func = methods.get(action)
     api6_uri = request.headers.get("API6URL")
+
     try:
         api6_apiKey = Tenant.objects.get(url=api6_uri).apiKey
     except Exception as e:
         logging.error(e)
-        return "apisix not found apiKey"
+        return "api6 can not found apiKey"
 
     url = os.path.join(api6_uri, url_suffix)
     try:
@@ -32,4 +33,4 @@ def request_session(request, action, url_suffix, pk=None):
             return ret
     except Exception as e:
         logging.error(e)
-        return 'apisix connect errors'
+        return 'api6 connect errors'
